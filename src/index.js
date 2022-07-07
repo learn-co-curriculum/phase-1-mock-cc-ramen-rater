@@ -14,6 +14,9 @@ const selectedRating = document.querySelector('#rating-display');
 const selectedComment = document.querySelector('#comment-display');
 //grab the form to add new ramen
 const newRamen = document.querySelector('#new-ramen');
+//grab the form to edit current ramen
+const editRamen = document.querySelector('#edit-ramen');
+
 
 const fetchRamen = async () => {
     //request from db
@@ -54,6 +57,19 @@ const renderMenu = async () => {
     });
 }
 
+const setInitial = async () => {
+    //get data struct from promise
+    let currMenu = await fetchRamen();
+    //get first item from db
+    const ramenItem = currMenu[0];
+
+    //set that shit by data member
+    selectedImg.src = currMenu[0].image;
+    selectedName.textContent = currMenu[0].name;
+    selectedRestaurant.textContent = currMenu[0].restaurant;
+    selectedRating.textContent = currMenu[0].rating;
+    selectedComment.textContent = currMenu[0].comment;
+}
 newRamen.addEventListener('submit', (event) => {
     event.preventDefault();
 
@@ -106,9 +122,9 @@ newRamen.addEventListener('submit', (event) => {
         //set ramen comment
         selectedComment.textContent = newRamenEntry.comment;
 
-
     })
 })
 
 
 renderMenu();
+setInitial();
