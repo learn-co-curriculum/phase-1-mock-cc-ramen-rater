@@ -90,14 +90,7 @@ newRamen.addEventListener('submit', (event) => {
             "Content-Type": "application/json",
             "Accept": "application/json",
         },
-        body: JSON.stringify({
-            name: newRamen['name'].value,
-            restaurant: newRamen['restaurant'].value,
-            image: newRamen['image'].value,
-            rating: newRamen['rating'].value,
-            comment: newRamen['new-comment'].value,
-        })
-
+        body: newRamenEntryDb,
     })
 
     //make element
@@ -125,6 +118,11 @@ newRamen.addEventListener('submit', (event) => {
     })
 })
 
+editRamen.addEventListener('submit', (event) => {
+    event.preventDefault();
+
+    
+})
 
 renderMenu();
 setInitial();
