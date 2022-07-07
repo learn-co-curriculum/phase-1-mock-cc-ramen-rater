@@ -68,6 +68,22 @@ newRamen.addEventListener('submit', (event) => {
     let newRamenEntryDb = JSON.stringify(newRamenEntry);
 
 
+    let addNew = fetch(url, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json",
+        },
+        body: JSON.stringify({
+            name: newRamen['name'].value,
+            restaurant: newRamen['restaurant'].value,
+            image: newRamen['image'].value,
+            rating: newRamen['rating'].value,
+            comment: newRamen['new-comment'].value,
+        })
+
+    })
+
     //make element
     let menuImg = document.createElement('img');
     //change img src 
@@ -89,7 +105,10 @@ newRamen.addEventListener('submit', (event) => {
         selectedRating.textContent = newRamenEntry.rating;
         //set ramen comment
         selectedComment.textContent = newRamenEntry.comment;
+
+
     })
 })
+
 
 renderMenu();
