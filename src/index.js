@@ -1,66 +1,95 @@
-// write your code here
+//ramen url
+const url = 'http://localhost:3000/ramens';
+//grab ramen menu
+const ramenMenu = document.getElementById('ramen-menu');
+//grab the selected ramen image
+const selectedImg = document.querySelector('#ramen-detail > img');
+//grab the selected ramen name
+const selectedName = document.querySelector('#ramen-detail > h2');
+//grab the selected ramen restaurant
+const selectedRestaurant = document.querySelector('#ramen-detail > h3');
+//grab the selected ramen rating
+const selectedRating = document.querySelector('#rating-display');
+//grab the selected ramen comment
+const selectedComment = document.querySelector('#comment-display');
+//grab the form to add new ramen
+const newRamen = document.querySelector('#new-ramen');
 
-
-//is creaing a custom object and array the answer?
-//why not just use db.json? 
-//how do i push things to db.json without making my own object to hold the value for?
-
-let ramenList = [];
-let url = 'http://localhost:3000/ramens';
-let ramenMenu = document.getElementById('ramen-menu');
-let rating = document.querySelector("#rating-display");
-let comment = document.querySelector("#comment-display");
-
-let newReview = document.getElementById("new-ramen");
-
-const makeMenu = () => {
-    let ramenListInfo = fetch(url);
-    let res = ramenListInfo.then(response => response.json());
-    res.then(data => {
-        for(ramenItem of data){
-            ramenList.push(ramenItem);
-
-            const menuImg = document.createElement('img');
-            menuImg.src = `${ramenItem.image}`;
-            menuImg.classList.add('#ramen-menu');
-            menuImg.alt = `${ramenList.length-1}`;
-            ramenMenu.append(menuImg);
-
-            menuImg.addEventListener('click', () => {
-                let selectedRamenImg = document.querySelector("#ramen-detail > img");
-                selectedRamenImg.src = `${ramenList[menuImg.alt].image}`;
-                let selectedRamenName = document.querySelector("#ramen-detail > h2");
-                selectedRamenName.textContent = `${ramenList[menuImg.alt].name}`;
-                let selectedRamenRestaurant = document.querySelector("#ramen-detail > h3")
-                selectedRamenRestaurant.textContent = `${ramenList[menuImg.alt].restaurant}`;
-
-                rating.textContent = `${ramenList[menuImg.alt].rating}`;
-                comment.textContent = `${ramenList[menuImg.alt].comment}`;
-            })
-            
-        }
-    })
-
-    console.log(ramenList)
+const fetchRamen = async () => {
+    //request from db
+    const req = await fetch(url);
+    //get promise as json
+    const res = await req.json();
+    return res;
 };
 
-const inputNewReview = () => {
-    newReview.addEventListener('submit', (event) => {
-        event.preventDefault();
+const renderMenu = async () => {
+    //get data struct from promise
+    let currMenu = await fetchRamen();
+    //iterate through each, make new image element and append
+    //event listener for selecting from menu
+    currMenu.forEach(ramenItem => {
+        //make element
+        let menuImg = document.createElement('img');
+        //change img src 
+        menuImg.src = `${ramenItem.image}`;
+        //specify the class
+        menuImg.classList.add('#ramen-menu');
+        //apend 
+        ramenMenu.append(menuImg);
 
-        for (a in event.target[0]){
-            console.log(a)
-        }
-
-        let obj = {id:`${ramenList.length}`, name:`${event.target[0]}`, restaurant:`${event.target[1]}`, image:`${event.target[2]}`, rating:`${event.target[3]}`, comment:`${event.target[4]}`};
-        ramenList.push(obj);
-
-        console.log(ramenList[ramenList.length-1]);
-        console.log(ramenList);
-
-    })
+        //event listener
+        menuImg.addEventListener('click', () => {
+            //set ramen image
+            selectedImg.src = ramenItem.image;
+            //set ramen name
+            selectedName.textContent = ramenItem.name;
+            //set ramen restaurant
+            selectedRestaurant.textContent = ramenItem.restaurant;
+            //set ramen rating
+            selectedRating.textContent = ramenItem.rating;
+            //set ramen comment
+            selectedComment.textContent = ramenItem.comment;
+        })
+    });
 }
 
-makeMenu();
-//The DOMContentLoaded event fires when the initial HTML document has been completely loaded and parsed, without waiting for stylesheets, images, and subframes to finish loading.
-document.addEventListener('DOMContentLoaded', inputNewReview);
+newRamen.addEventListener('submit', (event) => {
+    event.preventDefault();
+
+    const newRamenEntry = {
+        name: newRamen['name'].value,
+        restaurant: newRamen['restaurant'].value,
+        image: newRamen['image'].value,
+        rating: newRamen['rating'].value,
+        comment: newRamen['new-comment'].value,
+    }
+
+    let newRamenEntryDb = JSON.stringify(newRamenEntry);
+
+
+    //make element
+    let menuImg = document.createElement('img');
+    //change img src 
+    menuImg.src = `${newRamenEntry.image}`;
+    //specify the class
+    menuImg.classList.add('#ramen-menu');
+    //apend 
+    ramenMenu.append(menuImg); 
+
+    //event listener
+    menuImg.addEventListener('click', () => {
+        //set ramen image
+        selectedImg.src = newRamenEntry.image;
+        //set ramen name
+        selectedName.textContent = newRamenEntry.name;
+        //set ramen restaurant
+        selectedRestaurant.textContent = newRamenEntry.restaurant;
+        //set ramen rating
+        selectedRating.textContent = newRamenEntry.rating;
+        //set ramen comment
+        selectedComment.textContent = newRamenEntry.comment;
+    })
+})
+
+renderMenu();
