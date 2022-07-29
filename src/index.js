@@ -10,6 +10,8 @@ let ramen = []
 const ramenMenu = document.getElementById('ramen-menu')
 const ramenDetail = document.getElementById('ramen-detail')
 const [ramenDetailImage, ramenDetailName, ramenDetailRestaurant] = ramenDetail.children
+const commentDisplay = document.getElementById('comment-display')
+const ratingDisplay = document.getElementById('rating-display')
 const newRamenForm = document.getElementById('new-ramen')
 const newRamenNameInput = document.getElementById('new-name')
 const newRamenRestaurantInput = document.getElementById('new-restaurant')
@@ -60,6 +62,8 @@ function setRamenDetailsById(id){
     ramenDetailImage.src = selected.image
     ramenDetailName.innerText = selected.name
     ramenDetailRestaurant.innerText = selected.restaurant
+    commentDisplay.innerText = selected.comment
+    ratingDisplay.innerText = selected.rating
 }
 
 // add new ramen to menu on submit
