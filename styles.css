@@ -21,6 +21,12 @@ header {
   background-color: black;
 }
 
+.delete-btn {
+  display: block;
+  position: absolute;
+  z-index: 100000;
+}
+
 #ramen-menu {
   display: flex;
   overflow-x: auto;

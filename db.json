@@ -9,14 +9,6 @@
       "comment": "Delish. Can't go wrong with a classic!"
     },
     {
-      "id": 2,
-      "name": "Naruto Ramen",
-      "restaurant": "Naruto",
-      "image": "./assets/ramen/naruto.jpg",
-      "rating": 10,
-      "comment": "My absolute fave!"
-    },
-    {
       "id": 3,
       "name": "Nirvana Shiromaru",
       "restaurant": "Ippudo",
@@ -33,12 +25,12 @@
       "comment": "Good to the last drop."
     },
     {
-      "id": 5,
-      "name": "Kojiro Red Ramen",
-      "restaurant": "Ramen-Ya",
-      "image": "./assets/ramen/kojiro.jpg",
-      "rating": 6,
-      "comment": "Perfect for a cold night."
+      "name": "asdf",
+      "restaurant": "asdf",
+      "image": "https://www.freeiconspng.com/uploads/slinky-png-transparent-1.png",
+      "rating": "6",
+      "comment": "too slinky.",
+      "id": 6
     }
   ]
 }
