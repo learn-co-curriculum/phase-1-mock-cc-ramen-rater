@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
-    addSubmitListener();
     displayRamens();
+    addSubmitListener();
 })
 
 // fetches ramens and puts them all on the menu
@@ -18,7 +18,7 @@ function addSubmitListener() {
 
     ramenForm.addEventListener("submit", (e) => {
         e.preventDefault();
-        // addRamen();
+        addNewRamen();
         ramenForm.reset();
     })
 }
@@ -57,8 +57,33 @@ function showRamenDetails(ramen) {
     detailComment.textContent = ramen.comment
 }   
 
-function addRamen() {
-    console.log(ramenForm);
+// get new ramen from form, add new ramen to database, and add to menu
+function addNewRamen() {
+    // build newRamen object from form inputs
+    const newName = document.getElementById("new-name").value;
+    const newRestaurant = document.getElementById("new-restaurant").value;
+    const newImage = document.getElementById("new-image").value;
+    const newRating = document.getElementById("new-rating").value;
+    const newComment = document.getElementById("new-comment").value;
+
+    const newRamen = {
+        "name": newName,
+        "restaurant": newRestaurant,
+        "image": newImage,
+        "rating": newRating,
+        "comment": newComment
+    }
+    // POST new ramen to db
+    fetch("http://localhost:3000/ramens", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(newRamen)
+    })
+
+    // add new ramen to menu by calling renderOneRamen()
+    renderOneRamen(newRamen);
 }
 
 // deleteRamen
