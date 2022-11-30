@@ -43,23 +43,23 @@ header {
   position: relative;
 }
 
-.detail-image {
+#detail-image {
   height: 350px;
 }
 
-.name,
-.restaurant {
+#detail-name,
+#detail-restaurant {
   position: absolute;
   left: 10px;
   padding: 0.25rem 5rem 0.25rem 1rem;
   background-color: rgba(255, 255, 255, 0.8);
 }
 
-.name {
+#detail-name {
   bottom: 60px;
 }
 
-.restaurant {
+#detail-restaurant {
   bottom: 20px;
 }
 
