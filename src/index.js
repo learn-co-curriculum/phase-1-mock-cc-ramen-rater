@@ -76,7 +76,7 @@ function showRamenDetails(ramen) {
     detailComment.textContent = ramen.comment;
 }   
 
-// gets new ramen from form, add new ramen to database, and add to menu
+// gets new ramen from form, then adds it to database, then adds to menu
 function addNewRamen() {
     // build newRamen object from form inputs
     const newName = document.getElementById("new-name").value;
