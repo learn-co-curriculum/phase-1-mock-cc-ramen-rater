@@ -9,11 +9,11 @@ function displayRamens() {
     fetch("http://localhost:3000/ramens")
         .then(res => res.json())
         // once fetched, render each ramen with renderOneRamen()
-        .then(ramens => ramens.forEach(ramen => {
-            renderOneRamen(ramen)
+        .then(ramens => {
+            ramens.forEach(ramen => renderOneRamen(ramen))
             // also, show the details of the first ramen in the array
-            showRamenDetails(ramens[0])
-        }))
+            showRamenDetails(ramens[0]);
+        })
 }
 
 // adds event listener to form for new ramen submission
