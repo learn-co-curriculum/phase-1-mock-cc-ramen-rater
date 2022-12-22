@@ -1,0 +1,85 @@
+[33mcommit 09a25eb8add9174518933bf191a1b34dead4c94d[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: michoel kahana <kmichoel25@gmail.com>
+Date:   Wed Dec 21 15:40:48 2022 -0500
+
+    core deliverables
+
+[33mcommit b2959a64f4121c50b41455045a293e7c7de48d56[m
+Author: Liz Burton <liz.burton147@gmail.com>
+Date:   Fri Dec 16 16:09:12 2022 -0500
+
+    update canvas file
+
+[33mcommit d38a34ac0d63a4a47d2f3dd7c26ebf3fbdb0b155[m
+Author: Liz Burton <liz.burton147@gmail.com>
+Date:   Fri Dec 16 16:09:11 2022 -0500
+
+    remove canvas file
+
+[33mcommit 7a932fd3eeaa372527f2434d0482c6bef2af862a[m
+Author: Liz Burton <liz.burton147@gmail.com>
+Date:   Wed Sep 21 08:34:21 2022 -0400
+
+    Revert "solution! with landrover and cow Seo ramen, from big daves ramen house"
+    
+    This reverts commit 67aa1cda924d84111a5dae58d7cde599397ee465.
+
+[33mcommit 67aa1cda924d84111a5dae58d7cde599397ee465[m
+Author: Christopher K Erlendson <christopherkerlendson@Christophers-MacBook-Pro.local>
+Date:   Thu Sep 8 15:47:26 2022 -0400
+
+    solution! with landrover and cow Seo ramen, from big daves ramen house
+
+[33mcommit b4eb32886906058db0ac0b5744fd961ef4862725[m[33m ([m[1;31morigin/solution-advanced[m[33m, [m[1;31morigin/solution[m[33m)[m
+Merge: 6b62868 92222c9
+Author: Liz Burton <liz.burton147@gmail.com>
+Date:   Fri May 13 10:52:46 2022 -0400
+
+    Merge pull request #4 from learn-co-curriculum/issue-fix
+    
+    Fix typo
+
+[33mcommit 92222c94a42dcc44e4f1745cfb2e999eb3581ee3[m
+Author: Liz Burton <liz.burton147@gmail.com>
+Date:   Fri May 13 10:52:22 2022 -0400
+
+    Fix typo
+
+[33mcommit 6b628685c19b713ee9fecce79ab972da922185aa[m
+Merge: 10be8a5 5d8a1a3
+Author: Liz Burton <liz.burton147@gmail.com>
+Date:   Thu May 12 15:23:00 2022 -0400
+
+    Merge pull request #2 from learn-co-curriculum/issue-fix
+    
+    Add license and contributing docs
+
+[33mcommit 5d8a1a3147bb58b199e8d9bafe9227511de4b0db[m
+Author: Liz Burton <liz.burton147@gmail.com>
+Date:   Thu May 12 15:22:36 2022 -0400
+
+    Add license and constributing docs
+
+[33mcommit 10be8a56367c20fabcb5cd70913b802cd7541fc1[m
+Author: Ian Hollander <39830572+ihollander@users.noreply.github.com>
+Date:   Wed Sep 1 06:41:18 2021 -0400
+
+    Added Learning Goals
+
+[33mcommit 69bfdb32877351c325b003762f492f92b5c2a426[m
+Author: ihollander <ianholla@gmail.com>
+Date:   Wed Aug 18 17:20:36 2021 -0400
+
+    Added Canvas workflow
+
+[33mcommit cea90f41f3aa9367c2ae222060c4c1a49b3f6731[m
+Author: ihollander <ianholla@gmail.com>
+Date:   Wed Aug 18 17:11:44 2021 -0400
+
+    Used S3 image and fixed formatting
+
+[33mcommit 7ed95cf81f471f7d1505c06570cd2a3ff8059ebf[m
+Author: Michelle <brendamichelle995@gmail.com>
+Date:   Wed Aug 18 13:46:47 2021 -0400
+
+    Add set up

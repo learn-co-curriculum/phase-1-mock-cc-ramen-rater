@@ -6,11 +6,11 @@ const URL = "http://localhost:3000/ramens";
 // When the page loads,
 // document.addEventListener("DOMContentLoaded", () => {
 const ramenMenu = document.getElementById("ramen-menu");
-const centerImage = document.querySelector(".detail-image");
-const centerName = document.querySelector(".name");
-const centerRestaurant = document.querySelector(".restaurant");
-const centerRating = document.querySelector("#rating-display");
-const centerComment = document.querySelector("#comment-display");
+const ramenImage = document.querySelector(".detail-image");
+const ramenName = document.querySelector(".name");
+const ramenRestaurant = document.querySelector(".restaurant");
+const ramenRating = document.querySelector("#rating-display");
+const ramenComment = document.querySelector("#comment-display");
 const form = document.getElementById("new-ramen");
 
 // request the data from the server to get all the ramen objects.
@@ -30,13 +30,13 @@ function renderSingleRamenToMenu(ramenObj) {
   // Click on an image from the #ramen-menu div
   newRamenImg.addEventListener("click", () => {
     // and see all the info about that ramen displayed inside the #ramen-detail div
-    centerImage.src = ramenObj.image;
-    centerName.textContent = ramenObj.name;
-    centerRestaurant.textContent = ramenObj.restaurant;
+    ramenImage.src = ramenObj.image;
+    ramenName.textContent = ramenObj.name;
+    ramenRestaurant.textContent = ramenObj.restaurant;
 
     //  and where it says insert comment here and insert rating here.
-    centerRating.textContent = ramenObj.rating;
-    centerComment.textContent = ramenObj.comment;
+    ramenRating.textContent = ramenObj.rating;
+    ramenComment.textContent = ramenObj.comment;
   });
 
   // append to the ramen menu
