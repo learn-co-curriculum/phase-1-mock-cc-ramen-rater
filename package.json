@@ -1,0 +1,36 @@
+{
+  "name": "phase-1-mock-cc-ramen-rater",
+  "version": "1.0.0",
+  "description": "practice fetch requests, using an API, responding to user events, updating the dom",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha --timeout 5000"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/learn-co-curriculum/phase-1-mock-cc-ramen-rater.git"
+  },
+  "keywords": [
+    "flatiron school",
+    "javascript",
+    "dom",
+    "fetch",
+    "api",
+    "user events"
+  ],
+  "author": "Flatiron School",
+  "license": "CC-BY-NC-SA-4.0",
+  "bugs": {
+    "url": "https://github.com/learn-co-curriculum/phase-1-mock-cc-ramen-rater/issues"
+  },
+  "homepage": "https://github.com/learn-co-curriculum/phase-1-mock-cc-ramen-rater#readme",
+  "dependencies": {
+    "chai": "^4.2.0",
+    "jsdom": "^9.0",
+    "mocha": "5.2.0",
+    "mocha-jsdom": "~1.1.0"
+  }
+}
