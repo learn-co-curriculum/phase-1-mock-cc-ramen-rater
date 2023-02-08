@@ -5,8 +5,8 @@
       "name": "Shoyu Ramen",
       "restaurant": "Nonono",
       "image": "./assets/ramen/shoyu.jpg",
-      "rating": 7,
-      "comment": "Delish. Can't go wrong with a classic!"
+      "rating": "8",
+      "comment": "Delish. Can't go wrong with a classic..."
     },
     {
       "id": 2,
@@ -41,11 +41,11 @@
       "comment": "Perfect for a cold night."
     },
     {
-      "name": "ff",
-      "restaurant": "fff",
-      "image": "https://www.elmundoeats.com/wp-content/uploads/2021/02/Quick-30-minutes-chicken-ramen-top-view.jpg",
-      "rating": "1",
-      "comment": "ff",
+      "name": "ramen",
+      "restaurant": "ramen",
+      "image": "https://fitfoodiefinds.com/wp-content/uploads/2021/03/ramen-12sq.jpg",
+      "rating": "10",
+      "comment": "love it!",
       "id": 6
     }
   ]
