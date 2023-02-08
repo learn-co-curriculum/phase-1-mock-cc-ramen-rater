@@ -86,7 +86,7 @@ As a user, I can:
 
 ## Extra Advanced Deliverables
 
-You'll need a these endpoints for these advanced deliverables:
+You'll need these endpoints for the advanced deliverables:
 
 - POST `/ramens`
 - DELETE `/ramens/:id`
