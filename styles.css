@@ -87,7 +87,7 @@ input[type="submit"] {
   background-color: black;
   cursor: pointer;
   transition: all 0.3s;
-  width: 300px;
+ 
 }
 
 input[type="submit"]:active {
