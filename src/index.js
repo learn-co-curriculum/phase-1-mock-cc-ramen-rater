@@ -38,7 +38,7 @@ function renderRamen(ramen) {
 function addNewRamen(e) {
   e.preventDefault()
 
-  console.log(typeof(parseInt(e.target.rating.value)))
+  // console.log(typeof(parseInt(e.target.rating.value)))
 
   const newObj = {
     name: e.target['name'].value,
