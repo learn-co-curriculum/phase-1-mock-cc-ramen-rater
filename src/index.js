@@ -48,7 +48,7 @@ function addNewRamen(e) {
     comment: e.target.new_comment.value
   }
 
- 
+
 
   fetch('http://localhost:3000/ramens', {
     method: "POST",
