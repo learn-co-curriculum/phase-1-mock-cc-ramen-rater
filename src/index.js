@@ -35,6 +35,7 @@ function renderMenu(ramen) {
   menuImg.src = ramen.image
   ramenMenu.append(menuImg)
   menuImg.addEventListener('click', () => renderRamen(ramen))
+  menuImg.setAttribute('ramen-id', ramen.id); //include ramen id for editing and deleting
 }
 
 // function displays detailed info about each ramen
@@ -127,6 +128,15 @@ function deleteRamen(e) {
 
   const ramenId = e.target.getAttribute('ramen-id')
 
+  //ANOTHER SOLUTION TO REMOVE IMG FROM THE MENU
+  //get list of all images in menu
+  //remove image that matches the ramen that was deleted
+  // let menuList = document.querySelectorAll('#ramen-menu img') 
+  // menuList.forEach(el => {
+  //   if (el.getAttribute('ramen-id') === ramenId) {
+  //       el.remove(); //remove image node from menuList
+  //   }})
+
   fetch(`http://localhost:3000/ramens/${ramenId}`, {
     method: "DELETE"
   })
@@ -137,6 +147,7 @@ function deleteRamen(e) {
     renderData(updatedData)
     renderRamen(updatedData[0])
   })
+
 }
 
 
