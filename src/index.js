@@ -1,6 +1,5 @@
 // endpoiints needed are GET /ramens & GET /rames/:id
 
-
 document.addEventListener('DOMContentLoaded', () => { 
 // write your code here
 //////////// GLOBAL VARIABLES & STATE //////////// 
@@ -15,7 +14,9 @@ const ramenRating = document.getElementById('rating-display')
 const ramenComment = document.getElementById('comment-display')
 
 //////////// EVENT LISTENERS //////////// 
-document.querySelector('form').addEventListener('submit', addRamen)
+document.getElementById('new-ramen').addEventListener('submit', addRamen)
+document.getElementById('edit-ramen').addEventListener('submit', editRamen)
+document.getElementById('delete-ramen').addEventListener('click', deleteRamen)
 
 //////////// Functions //////////// 
 
@@ -43,8 +44,11 @@ function displayRamen(ramen) {
     ramenRestaurant.textContent = ramen.restaurant;
     ramenRating.textContent = ramen.rating;
     ramenComment.textContent = ramen.comment;
+
+    
 }
 
+//Adds new ramen on form submit
 function addRamen(event) {
     event.preventDefault();
     const name = document.getElementById('new-name').value;
@@ -69,6 +73,34 @@ function addRamen(event) {
 
 }
 
+//update ramen rating and comment
+function editRamen(event) { 
+    event.preventDefault();
+    const newRating = document.getElementById('new-rating').value
+    const newComment = document.getElementById('new-comment').value
+
+    fetch(`http://localhost:3000/ramens/${currentRamen.id}`, { 
+        method: 'PATCH',
+        headers: { 
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+            'rating': newRating,
+            'comment': newComment
+        })
+    })
+
+}
+
+//delete ramen
+function deleteRamen(event) {
+    event.preventDefault();
+    fetch(`http://localhost:3000/ramens/${currentRamen.id}`, {
+        method: 'DELETE'
+    })
+}
+
 //////////// GET //////////// 
 fetch('http://localhost:3000/ramens')
 .then(response => response.json())
@@ -76,6 +108,7 @@ fetch('http://localhost:3000/ramens')
     ramen = data;
 
     ramenNav(ramen)
+    displayRamen(ramen[0])
    
 })
 
