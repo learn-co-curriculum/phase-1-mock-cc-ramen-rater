@@ -11,7 +11,6 @@ const ramenDetailsComment = document.querySelector("#comment-display");
 const ramenMenu = document.querySelector("#ramen-menu");
 
 //*GIMME DAT DATA
-
 getJSON(url + "/ramens").then((ramens) => {
   ramens.forEach(renderMenu);
   renderDetails(ramens[0]);
@@ -32,6 +31,8 @@ const renderMenu = (ramen) => {
   img.className = "menu-Images";
   img.src = ramen.image;
   img.alt = `Picture of ${ramen.name}`;
-  img.addEventListener("click", renderDetails(ramen));
+  img.addEventListener("click", () => renderDetails(ramen));
   ramenMenu.append(img);
 };
+
+
