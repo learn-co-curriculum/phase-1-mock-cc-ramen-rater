@@ -1,38 +1,48 @@
-const url = "http://localhost:3000";
+url = "http://localhost:3000";
 
 //* HTML Selectors
-const ramenDetails = document.querySelector("#ramen-details");
-const ramenForm = document.querySelector("#new-ramen");
-const ramenDetailsName = document.querySelector("h2.name");
-const ramenDetailsRestaurant = document.querySelector("h3.restaurant");
-const ramenDetailsImage = document.querySelector("img");
-const ramenDetailsRating = document.querySelector("#rating-display");
-const ramenDetailsComment = document.querySelector("#comment-display");
 const ramenMenu = document.querySelector("#ramen-menu");
+const ramenDetails = document.querySelector("#ramen-details");
+const ramenDetailImage = document.querySelector("#ramen-image");
+const ramenDetailName = document.querySelector(".name");
+const ramenDetailRestaurant = document.querySelector(".restaurant");
+const ramenDetailRating = document.querySelector("#rating-display");
+const ramenDetailComment = document.querySelector("#comment-display");
+const form = document.querySelector("#new-ramen");
 
-//*GIMME DAT DATA
+//* GIMME DAT DATA
 getJSON(url + "/ramens").then((ramens) => {
   ramens.forEach(renderMenu);
   renderDetails(ramens[0]);
 });
 
 //* Render Functions
-const renderDetails = (ramen) => {
-  ramenDetailsName.textContent = ramen.name;
-  ramenDetailsImage.src = ramen.image;
-  ramenDetailsComment.textContent = ramen.comment;
-  ramenDetailsRating.textContent = ramen.rating;
-  ramenDetailsRestaurant.textContent = ramen.restaurant;
-};
-
 const renderMenu = (ramen) => {
   const img = document.createElement("img");
-  img.id = `ramenImage-${ramen.id}`;
-  img.className = "menu-Images";
   img.src = ramen.image;
-  img.alt = `Picture of ${ramen.name}`;
-  img.addEventListener("click", () => renderDetails(ramen));
+  img.addEventListener("click", () => {
+    renderDetails(ramen);
+  });
   ramenMenu.append(img);
 };
 
+const renderDetails = (ramen) => {
+  ramenDetailName.innerText = ramen.name;
+  ramenDetailImage.src = ramen.image;
+  ramenDetailRestaurant.innerText = ramen.restaurant;
+  ramenDetailRating.innerText = ramen.rating;
+  ramenDetailComment.innerText = ramen.comment;
+};
 
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const ramen = {
+    image: form.image.value,
+    name: form.name.value,
+    restaurant: form.restaurant.value,
+    rating: parseInt(form.rating.value),
+    comment: form["new-comment"].value,
+  };
+  renderMenu(ramen);
+  form.reset();
+});
