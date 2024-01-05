@@ -1,5 +1,5 @@
 {
-  "name": "phase-1-mock-cc-ramen-rater",
+  "name": "phase-1-mock-cc-ramen-rater", 
   "version": "1.0.0",
   "description": "practice fetch requests, using an API, responding to user events, updating the dom",
   "main": "index.js",
