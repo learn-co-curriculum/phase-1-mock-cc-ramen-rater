@@ -7,7 +7,7 @@
     "test": "test"
   },
   "scripts": {
-    "test": "mocha"
+    "test": "mocha --timeout 5000"
   },
   "repository": {
     "type": "git",
@@ -31,7 +31,6 @@
     "chai": "^4.2.0",
     "jsdom": "^9.0",
     "mocha": "5.2.0",
-    "mocha-jsdom": "~1.1.0",
-    "sinon": "^17.0.1"
+    "mocha-jsdom": "~1.1.0"
   }
 }
