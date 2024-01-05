@@ -150,24 +150,61 @@ describe('Ramen Menu App Tests', () => {
   
   
 
+  const sinon = require('sinon');
+  const { expect } = require('chai');
+  
   describe('deleteRamen', () => {
-    it('should remove a ramen from both the database and the UI', () => {
-        // Create a ramenDiv element and append it to the document body
-        const ramenDiv = document.createElement('div');
-        document.body.appendChild(ramenDiv);
-
-        const ramenId = 1; // Mock ramen ID
-        // Call deleteRamen and pass a valid ramenDiv element
-        deleteRamen(ramenId, ramenDiv);
-
-        // Add assertions to test if it's removed from UI and fake API call is made
-
-        // Clean up by removing the appended ramenDiv (if it wasn't removed already)
-        if (ramenDiv.parentNode) {
-            ramenDiv.parentNode.removeChild(ramenDiv);
+      let fetchStub;
+  
+      beforeEach(() => {
+          // Create mock elements expected by showRamenDetails
+          const detailImage = document.createElement('img');
+          detailImage.className = 'detail-image';
+          const detailName = document.createElement('h2');
+          detailName.className = 'name';
+          const detailRestaurant = document.createElement('h3');
+          detailRestaurant.className = 'restaurant';
+          const detailRating = document.createElement('span');
+          detailRating.id = 'rating-display';
+          const detailComment = document.createElement('p');
+          detailComment.id = 'comment-display';
+  
+          document.body.appendChild(detailImage, detailName, detailRestaurant, detailRating, detailComment);
+  
+          // Stub fetch
+          fetchStub = sinon.stub(global, 'fetch').resolves({ ok: true });
+      });
+  
+      afterEach(() => {
+         // Only restore if fetchStub exists
+        if (fetchStub) {
+            fetchStub.restore();
         }
-    });
-});
+        // Clean up the DOM
+        document.body.innerHTML = '';
+      });
+  
+      it('should remove a ramen from both the database and the UI', async () => {
+          const ramenDiv = document.createElement('div');
+          document.body.appendChild(ramenDiv);
+  
+          const ramenId = 1; // Mock ramen ID
+  
+          await deleteRamen(ramenId, ramenDiv); // Ensure deleteRamen returns a promise
+  
+          // Assertions
+          sinon.assert.calledWith(fetchStub, `http://localhost:3000/ramens/${ramenId}`, {
+              method: 'DELETE',
+              headers: {
+                  'Content-Type': 'application/json'
+              }
+          });
+          expect(ramenDiv.parentNode).to.be.null;
+      });
+  });
+  
+
+
 
 
 

@@ -22,6 +22,7 @@ Use this gif as an example of how the app should work.
 - Run `json-server --watch db.json` to get the backend started
 - Open the `index.html` file on your browser
 - Write your code in the `index.js` file
+- As you are writing your code out and completing the deliverables ensure that it works on the DOM and passes the tests by running `mocha` in a new terminal in the same directory
 
 ## Endpoints
 

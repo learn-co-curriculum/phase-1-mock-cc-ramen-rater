@@ -1,8 +1,10 @@
 // write your code here
-// document.addEventListener("DOMContentLoaded", () => {
-//     displayRamens();
-//     addSubmitListener();
-// })
+if (typeof document !== "undefined") {
+    document.addEventListener("DOMContentLoaded", () => {
+        displayRamens();
+        addSubmitListener();
+    });
+}
 
 // fetches ramens and puts them all on the menu
 function displayRamens() {
@@ -137,6 +139,32 @@ function deleteRamen(id, ramenDiv) {
 
     showRamenDetails(placeholderInfo);
 }
+function deleteRamen(id, ramenDiv) {
+    return fetch(`http://localhost:3000/ramens/${id}`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(response => {
+        if (response.ok) {
+            ramenDiv.remove();
+            const placeholderInfo = {
+                "name": "Click a ramen!",
+                "restaurant": ":3",
+                "image": "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.Wn3NuoGzrYA99hHdlJPyqgHaGH%26pid%3DApi&f=1&ipt=eed45238f4853904989af4839e855d4e6fe2094fd1b7640d14dd66bdb6a301da&ipo=images",
+                "rating": "Select a ramen to display its rating!",
+                "comment": "Same deal."
+            }
+            showRamenDetails(placeholderInfo);
+        } else {
+            console.error('Deletion failed:', response.statusText);
+        }
+    })
+    .catch(error => {
+        console.error('Error during fetch operation:', error);
+    });
+};
 
 module.exports = {
     displayRamens,
@@ -146,3 +174,4 @@ module.exports = {
     addNewRamen,
     deleteRamen
 };
+
