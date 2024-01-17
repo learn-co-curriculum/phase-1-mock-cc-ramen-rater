@@ -5,7 +5,7 @@ const mochaJsdom = require('mocha-jsdom');
 
 // Your test code here
 
-const { displayRamens, addSubmitListener, renderOneRamen, showRamenDetails, addNewRamen, deleteRamen } = require('../src/index'); // Adjust the path based on your project structure
+const { displayRamens, addSubmitListener, renderOneRamen, showRamenDetails, addNewRamen, deleteRamen } = require('../src/index.js'); // Adjust the path based on your project structure
 
 describe('Ramen Menu App Tests', () => {
     mochaJsdom({
@@ -92,7 +92,7 @@ describe('Ramen Menu App Tests', () => {
           const mockInputs = {
               'new-name': 'Test Ramen Name',
               'new-restaurant': 'Test Ramen Restaurant',
-              'new-image': 'test_image.jpg',
+              'new-image': 'https://cdn.dribbble.com/userupload/9326961/file/original-1930f8731eaab472ea2fb9d780c4563f.png?resize=752x',
               'new-rating': '5',
               'new-comment': 'Delicious!'
           };
