@@ -7,7 +7,7 @@
     "test": "test"
   },
   "scripts": {
-    "test": "mocha"
+    "test": "vitest --run --environment happy-dom"
   },
   "repository": {
     "type": "git",
@@ -28,10 +28,7 @@
   },
   "homepage": "https://github.com/learn-co-curriculum/phase-1-mock-cc-ramen-rater#readme",
   "dependencies": {
-    "chai": "^4.2.0",
-    "jsdom": "^9.0",
-    "mocha": "5.2.0",
-    "mocha-jsdom": "~1.1.0",
-    "sinon": "^17.0.1"
+    "happy-dom": "^13.2.1",
+    "vitest": "^1.2.1"
   }
 }
