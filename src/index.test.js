@@ -1,9 +1,9 @@
-import { displayRamens, displayRamen, handleSubmit, handleClick } from './index'
+import { displayRamens, handleClick, addSubmitListener, main } from './index'
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { Window } from 'happy-dom'
 import fs from 'fs'
 import path from 'path'
-import { fireEvent } from '@testing-library/dom';
+import { fireEvent } from '@testing-library/dom'
 
 //! Set the data
 const testResponseData = [
@@ -46,14 +46,6 @@ const testResponseData = [
         "image": "./assets/ramen/kojiro.jpg",
         "rating": 6,
         "comment": "Perfect for a cold night."
-    },
-    {
-        "name": "Mat",
-        "restaurant": "Test",
-        "image": "file:///Users/matteo/Development/code-challenge/phase-1-mock-cc-ramen-rater/assets/ramen/nirvana.jpg",
-        "rating": "4",
-        "comment": "test",
-        "id": 6
     }
 ];
 
@@ -68,8 +60,6 @@ const document = window.document
 document.body.innerHTML = ''
 document.write(htmlDocumentContent)
 vi.stubGlobal('document', document)
-
-
 
 //! Mock the Fetch API globally
 
@@ -87,13 +77,6 @@ const testFetch = vi.fn((url) => {
     });
 });
 vi.stubGlobal('fetch', testFetch);
-
-// Create a spy for handleClick
-// const handleClickSpy = vi.fn();
-
-// Stub the global handleClick function with the spy
-// vi.stubGlobal('handleClick', handleClickSpy);
-// vi.stubGlobal('handleClick', handleClickMock);
 
 //! Test Suite
 
@@ -166,4 +149,45 @@ describe('handleClick', () => {
         expect(detailsComment.textContent).toBe("Delish. Can't go wrong with a classic!");
     });
 
+})
+
+describe('handleSubmit', () => {
+    it('submits with button outside of form', async () => {
+        //! Arrange
+        const newRamen = {
+            name: 'Mat',
+            restaurant: 'Test',
+            image: './assets/ramen/nirvana.jpg',
+            rating: '4',
+            comment: 'test',
+            id: 6
+        
+        }
+        const ramenMenuDivBefore = document.querySelectorAll('#ramen-menu img');
+        const ramenForm = document.getElementById('new-ramen');
+        const ramenFormName = document.querySelector("#new-ramen #new-name");
+        const ramenFormRestaurant = document.querySelector("#new-ramen #new-restaurant");
+        const ramenFormImage = document.querySelector("#new-ramen #new-image");
+        const ramenFormRating = document.querySelector("#new-ramen #new-rating");
+        const ramenFormComment = document.querySelector("#new-ramen #new-comment");
+        const submitButton = document.getElementById('submit-button');
+
+        //! The listener is not added unless I invoke either of these functions
+        // addSubmitListener(ramenForm)
+        main(ramenForm)
+        
+        //! Act
+        ramenFormName.value = newRamen.name;
+        ramenFormRestaurant.value = newRamen.restaurant;
+        ramenFormImage.value = newRamen.image;
+        ramenFormRating.value = newRamen.rating;
+        ramenFormComment.value = newRamen.comment;
+
+        await fireEvent.click(submitButton);
+
+        //! Assert
+        const ramenMenuDivAfter = document.querySelectorAll('#ramen-menu img');
+        expect(ramenMenuDivAfter.length).toBe(ramenMenuDivBefore.length + 1);
+        expect(ramenMenuDivAfter[ramenMenuDivBefore.length].src).toBe(newRamen.image);
+    });
 })

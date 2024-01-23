@@ -11,7 +11,6 @@ const ramenForm = document.getElementById("new-ramen");
 
 // Callbacks
 const handleClick = (ramen, event) => {
-  console.log("🚀 ~ file: index.js:14 ~ handleClick ~ I was invoked with ramen:", ramen)
   const detailImg = document.querySelector("#ramen-detail > .detail-image");
   const detailName = document.querySelector("#ramen-detail > .name");
   const detailRestaurant = document.querySelector("#ramen-detail > .restaurant");
@@ -37,6 +36,7 @@ const displayRamen = (ramenObj) => {
 };
 
 const handleSubmit = (event) => {
+  console.log("handleSubmit FIRED")
   event.preventDefault();
   const name = event.target.name.value;
   const restaurant = event.target.restaurant.value;
@@ -57,10 +57,10 @@ const displayRamens = () => {
 };
 
 // Start the logic
-const addSubmitListener = () => ramenForm.addEventListener("submit", handleSubmit);
+const addSubmitListener = (form) => form.addEventListener("submit", handleSubmit);
 
-const main = () => {
-    addSubmitListener();
+const main = (form) => {
+    addSubmitListener(form);
     displayRamens();
 }
 
@@ -74,4 +74,5 @@ module.exports = {
   addSubmitListener,
   handleSubmit,
   handleClick,
+  main,
 };
