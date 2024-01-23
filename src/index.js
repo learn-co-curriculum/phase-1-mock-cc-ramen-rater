@@ -11,10 +11,18 @@ const ramenForm = document.getElementById("new-ramen");
 
 // Callbacks
 const handleClick = (ramen, event) => {
+  console.log("🚀 ~ file: index.js:14 ~ handleClick ~ I was invoked with ramen:", ramen)
+  const detailImg = document.querySelector("#ramen-detail > .detail-image");
+  const detailName = document.querySelector("#ramen-detail > .name");
+  const detailRestaurant = document.querySelector("#ramen-detail > .restaurant");
+  const detailsRating = document.getElementById("rating-display");
+  const detailsComment = document.getElementById("comment-display");
+
   detailImg.src = ramen.image;
+  detailImg.alt = ramen.image;
   detailName.innerText = ramen.name;
   detailRestaurant.innerText = ramen.restaurant;
-  detailsRating.innerText = ramen.rating;
+  detailsRating.innerText = ramen.rating.toString();
   detailsComment.innerText = ramen.comment;
 };
 
@@ -44,7 +52,7 @@ const handleSubmit = (event) => {
 const displayRamens = () => {
   fetch("http://localhost:3000/ramens")
     .then((response) => response.json())
-    .then((ramens) => {console.log(ramens);ramens.forEach(displayRamen)})
+    .then((ramens) => ramens.forEach(displayRamen))
     .catch((error) => console.log(error));
 };
 
@@ -65,4 +73,5 @@ module.exports = {
   displayRamen,
   addSubmitListener,
   handleSubmit,
+  handleClick,
 };

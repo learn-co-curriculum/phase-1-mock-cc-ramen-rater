@@ -1,8 +1,11 @@
+import { displayRamens, displayRamen, handleSubmit, handleClick } from './index'
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { Window } from 'happy-dom'
 import fs from 'fs'
 import path from 'path'
+import { fireEvent } from '@testing-library/dom';
 
+//! Set the data
 const testResponseData = [
     {
         "id": 1,
@@ -53,7 +56,10 @@ const testResponseData = [
         "id": 6
     }
 ];
+
 vi.stubGlobal('testResponseData', testResponseData)
+
+//! Set the DOM
 const htmlDocPath = path.join(process.cwd(), 'index.html');
 const htmlDocumentContent = fs.readFileSync(htmlDocPath).toString();
 
@@ -62,9 +68,10 @@ const document = window.document
 document.body.innerHTML = ''
 document.write(htmlDocumentContent)
 vi.stubGlobal('document', document)
-import { displayRamens } from './index'
 
 
+
+//! Mock the Fetch API globally
 
 const testFetch = vi.fn((url) => {
     return new Promise((resolve, reject) => {
@@ -81,6 +88,15 @@ const testFetch = vi.fn((url) => {
 });
 vi.stubGlobal('fetch', testFetch);
 
+// Create a spy for handleClick
+// const handleClickSpy = vi.fn();
+
+// Stub the global handleClick function with the spy
+// vi.stubGlobal('handleClick', handleClickSpy);
+// vi.stubGlobal('handleClick', handleClickMock);
+
+//! Test Suite
+
 describe('displayRamens', () => {
 
     beforeEach(() => {
@@ -91,7 +107,7 @@ describe('displayRamens', () => {
     it('should fetch all ramens and display them as <img> inside #ramen-menu', async () => {
 
         const ramenMenuDiv = document.getElementById('ramen-menu');
-        
+
         await displayRamens();
         await new Promise(resolve => setTimeout(resolve, 0));
 
@@ -101,9 +117,53 @@ describe('displayRamens', () => {
 
         expect(ramenImages.length).toEqual(testResponseData.length);
         expect(urls).toEqual(originalUrls);
-
-
     })
+})
 
+describe('handleClick', () => {
+    it('should fire on a click on every img inside #ramen-menu', async () => {
+        const ramenMenuDiv = document.getElementById('ramen-menu');
+        const ramenImages = ramenMenuDiv.querySelectorAll('img');
+
+        // Create a spy for handleClick
+        const handleClickSpy = vi.fn(handleClick);
+        vi.stubGlobal('handleClick', handleClickSpy);
+        // Attach the event listener manually with the spy
+        ramenImages.forEach((ramenImg) => {
+            const ramen = testResponseData.find((ramen) => ramen.image === ramenImg.src);
+            ramenImg.addEventListener('click', (event) => {
+                handleClickSpy(ramen, event);
+            });
+        });
+
+        // Trigger the click event on the first image
+        const img = ramenImages[0];
+        fireEvent.click(img);
+
+        // Check if handleClickSpy was called with the correct arguments
+        expect(handleClickSpy).toHaveBeenCalled();
+        expect(handleClickSpy).toHaveBeenCalledWith(testResponseData[0], expect.anything());
+
+    });
+
+    it('should append the correct data to the DOM', async () => {
+        const ramenMenuDiv = document.getElementById('ramen-menu');
+        const ramenImages = ramenMenuDiv.querySelectorAll('img');
+
+        const img = ramenImages[0]
+        fireEvent.click(img);
+
+        const detailImg = document.querySelector("#ramen-detail > .detail-image");
+        const detailName = document.querySelector("#ramen-detail > .name");
+        const detailRestaurant = document.querySelector("#ramen-detail > .restaurant");
+        const detailsRating = document.getElementById("rating-display");
+        const detailsComment = document.getElementById("comment-display");
+
+        expect(detailName.textContent).toBe('Shoyu Ramen');
+        expect(detailRestaurant.textContent).toBe('Nonono');
+        expect(detailImg.src).toBe('./assets/ramen/shoyu.jpg');
+        expect(detailsRating.textContent).toBe('7');
+        expect(detailsComment.textContent).toBe("Delish. Can't go wrong with a classic!");
+    });
 
 })
