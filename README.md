@@ -53,7 +53,7 @@ As a user, I can:
   After the submission, create a new ramen and add it to the`#ramen-menu` div. The new ramen does not need to persist; in other words, if you refresh the page, it's okay that the new ramen is no
   longer on the page.
 
-** Attention here **: Your program should have a main() function that invokes `displayRamens` and `addSubmitListener` after the DOM has fully loaded and start the program logic.
+** Attention here **: Your program should have a main() function that invokes `displayRamens` and `addSubmitListener` after the DOM has fully loaded to start the program logic.
 
 ## Advanced Deliverables
 
