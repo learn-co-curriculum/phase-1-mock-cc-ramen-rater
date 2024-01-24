@@ -1,8 +1,5 @@
 // index.js
 
-// Define global variables for later use
-const ramenForm = document.getElementById("new-ramen");
-
 // Callbacks
 const handleClick = (ramen, event) => {
   const detailImg = document.querySelector("#ramen-detail > .detail-image");
@@ -41,14 +38,6 @@ const handleSubmit = (event) => {
   displayRamen(newRamen);
 };
 
-// Fetch function
-const displayRamens = () => {
-  fetch("http://localhost:3000/ramens")
-    .then((response) => response.json())
-    .then((ramens) => ramens.forEach(displayRamen))
-    .catch((error) => console.log(error));
-};
-
 // Start the logic
 const addSubmitListener = () => {
   const ramenForm = document.querySelector("#new-ramen");
@@ -56,6 +45,14 @@ const addSubmitListener = () => {
       ramenForm.addEventListener("submit", handleSubmit);
   }
 }
+
+// Fetch function
+const displayRamens = () => {
+  fetch("http://localhost:3000/ramens")
+    .then((response) => response.json())
+    .then((ramens) => ramens.forEach(displayRamen))
+    .catch((error) => console.log(error));
+};
 
 const main = () => {
     addSubmitListener();
