@@ -87,7 +87,6 @@ describe('displayRamens', () => {
 
     it('should fetch all ramens and display them as <img> inside #ramen-menu', async () => {
         const ramenMenuDiv = document.getElementById('ramen-menu');
-        ramenMenuDiv.innerHTML = '';
         
         displayRamens();
         await new Promise(resolve => setTimeout(resolve, 0));

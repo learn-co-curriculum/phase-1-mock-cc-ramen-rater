@@ -48,7 +48,10 @@ const addSubmitListener = () => {
 const displayRamens = () => {
   fetch("http://localhost:3000/ramens")
     .then((response) => response.json())
-    .then((ramens) => ramens.forEach(displayRamen))
+    .then((ramens) => {
+      document.getElementById("ramen-menu").innerHTML = "";
+      ramens.forEach(displayRamen)
+    })
     .catch((error) => console.log(error));
 };
 
