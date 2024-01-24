@@ -85,16 +85,13 @@ import { addSubmitListener, displayRamens, handleClick, main } from './index'
 
 describe('displayRamens', () => {
 
-    beforeEach(() => {
-        document.body.innerHTML = ''
-        document.write(htmlDocumentContent)
-    })
-
     it('should fetch all ramens and display them as <img> inside #ramen-menu', async () => {
+        const ramenMenuDiv = document.getElementById('ramen-menu');
+        ramenMenuDiv.innerHTML = '';
+        
         displayRamens();
         await new Promise(resolve => setTimeout(resolve, 0));
 
-        const ramenMenuDiv = document.getElementById('ramen-menu');
         const ramenImages = ramenMenuDiv.querySelectorAll('img');
         const urls = Array.from(ramenImages).map((ramenImg) => ramenImg.src);
         const originalUrls = testResponseData.map((ramen) => ramen.image);
