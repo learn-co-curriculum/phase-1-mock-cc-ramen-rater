@@ -1,7 +1,7 @@
 // index.js
 
 // Callbacks
-const handleClick = (ramen, event) => {
+const handleClick = (ramen) => {
   const detailImg = document.querySelector("#ramen-detail > .detail-image");
   const detailName = document.querySelector("#ramen-detail > .name");
   const detailRestaurant = document.querySelector("#ramen-detail > .restaurant");
@@ -38,15 +38,13 @@ const handleSubmit = (event) => {
   displayRamen(newRamen);
 };
 
-// Start the logic
 const addSubmitListener = () => {
   const ramenForm = document.querySelector("#new-ramen");
   if (ramenForm) {
-      ramenForm.addEventListener("submit", handleSubmit);
+    ramenForm.addEventListener("submit", handleSubmit);
   }
 }
 
-// Fetch function
 const displayRamens = () => {
   fetch("http://localhost:3000/ramens")
     .then((response) => response.json())
@@ -55,8 +53,8 @@ const displayRamens = () => {
 };
 
 const main = () => {
-    addSubmitListener();
-    displayRamens();
+  addSubmitListener();
+  displayRamens();
 }
 
 main()

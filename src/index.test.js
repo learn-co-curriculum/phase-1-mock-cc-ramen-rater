@@ -85,6 +85,11 @@ import { addSubmitListener, displayRamens, handleClick, main } from './index'
 
 describe('displayRamens', () => {
 
+    beforeEach(() => {
+        document.body.innerHTML = ''
+        document.write(htmlDocumentContent)
+    })
+
     it('should fetch all ramens and display them as <img> inside #ramen-menu', async () => {
         displayRamens();
         await new Promise(resolve => setTimeout(resolve, 0));
@@ -162,9 +167,6 @@ describe('handleSubmit', () => {
         const ramenFormImage = document.querySelector("#new-ramen #new-image");
         const ramenFormRating = document.querySelector("#new-ramen #new-rating");
         const ramenFormComment = document.querySelector("#new-ramen #new-comment");
-        const submitButton = document.getElementById('submit-button');
-        [ramenFormName, ramenFormRestaurant, ramenFormImage, ramenFormRating, ramenFormComment].forEach((input) => console.log(input != null));
-        // main(ramenForm)
 
         ramenFormName.value = newRamen.name;
         ramenFormRestaurant.value = newRamen.restaurant;
@@ -173,14 +175,13 @@ describe('handleSubmit', () => {
         ramenFormComment.value = newRamen.comment;
         console.log("🚀 ~ file: index.test.js:171 ~ ", ramenFormName.value, ramenFormRestaurant.value, ramenFormImage.value, ramenFormRating.value, ramenFormComment.value)
 
-        // fireEvent.click(submitButton);
         fireEvent.submit(ramenForm, {
-			target: {
-				name: {value: newRamen.name},
-                restaurant: {value: newRamen.restaurant},
-                image: {value: newRamen.image},
-                rating: {value: newRamen.rating},
-                comment: {value: newRamen.comment},
+            target: {
+                name: { value: newRamen.name },
+                restaurant: { value: newRamen.restaurant },
+                image: { value: newRamen.image },
+                rating: { value: newRamen.rating },
+                comment: { value: newRamen.comment },
             },
             preventDefault: vi.fn(),
             reset: vi.fn(),
