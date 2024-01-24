@@ -50,14 +50,19 @@ const displayRamens = () => {
 };
 
 // Start the logic
-const addSubmitListener = () => ramenForm.addEventListener("submit", handleSubmit);
+const addSubmitListener = () => {
+  const ramenForm = document.querySelector("#new-ramen");
+  if (ramenForm) {
+      ramenForm.addEventListener("submit", handleSubmit);
+  }
+}
 
 const main = () => {
     addSubmitListener();
     displayRamens();
 }
 
-document.addEventListener('DOMContentLoaded', main);
+main()
 
 // Export functions for testing
 export {
