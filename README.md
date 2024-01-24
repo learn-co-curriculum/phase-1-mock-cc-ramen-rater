@@ -22,6 +22,7 @@ Use this gif as an example of how the app should work.
 - Run `json-server --watch db.json` to get the backend started
 - Open the `index.html` file on your browser
 - Write your code in the `index.js` file
+- As you are writing your code out and completing the deliverables ensure that it works on the DOM and passes the tests by running `mocha` in a new terminal in the same directory
 
 ## Endpoints
 
@@ -40,16 +41,19 @@ as you see fit.
 As a user, I can:
 
 - See all ramen images in the `div` with the id of `ramen-menu`. When the page
-  loads, request the data from the server to get all the ramen objects. Then,
+  loads, fire a function called `displayRamens` that requests the data from the server 
+  to get all the ramen objects. Then,
   display the image for each of the ramen using an `img` tag inside the
   `#ramen-menu` div.
-- Click on an image from the `#ramen-menu` div and see all the info about that
-  ramen displayed inside the `#ramen-detail` div and where it says
-  `insert comment here` and `insert rating here`.
-- Create a new ramen after submitting the `new-ramen` form. The new ramen should
-  be added to the`#ramen-menu` div. The new ramen does not need to persist; in
-  other words, if you refresh the page, it's okay that the new ramen is no
+- Click on an image from the `#ramen-menu` div and fire a callback called `handleClick` 
+  to see all the info about that
+  ramen displayed inside the `#ramen-detail` div (where it says
+  `insert comment here` and `insert rating here`).
+- Attach a submit even listener to the `new-ramen` form using a function called `addSubmitListener`. 
+  After the submission, create a new ramen and add it to the`#ramen-menu` div. The new ramen does not need to persist; in other words, if you refresh the page, it's okay that the new ramen is no
   longer on the page.
+
+** Attention here **: Your program should have a main() function that invokes `displayRamens` and `addSubmitListener` after the DOM has fully loaded to start the program logic.
 
 ## Advanced Deliverables
 
