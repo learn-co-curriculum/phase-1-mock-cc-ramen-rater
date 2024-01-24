@@ -1,12 +1,6 @@
 // index.js
 
 // Define global variables for later use
-const ramenMenuDiv = document.getElementById("ramen-menu");
-const detailImg = document.querySelector("#ramen-detail > .detail-image");
-const detailName = document.querySelector("#ramen-detail > .name");
-const detailRestaurant = document.querySelector("#ramen-detail > .restaurant");
-const detailsRating = document.getElementById("rating-display");
-const detailsComment = document.getElementById("comment-display");
 const ramenForm = document.getElementById("new-ramen");
 
 // Callbacks
@@ -36,13 +30,12 @@ const displayRamen = (ramenObj) => {
 };
 
 const handleSubmit = (event) => {
-  console.log("handleSubmit FIRED")
   event.preventDefault();
-  const name = event.target.name.value;
+  const name = event.target['new-name'].value;
   const restaurant = event.target.restaurant.value;
   const image = event.target.image.value;
   const rating = event.target.rating.value;
-  const comment = document.getElementById("new-comment").value;
+  const comment = event.target['new-comment'].value;
   const newRamen = { name, restaurant, image, rating, comment };
   event.target.reset();
   displayRamen(newRamen);
@@ -57,18 +50,17 @@ const displayRamens = () => {
 };
 
 // Start the logic
-const addSubmitListener = (form) => form.addEventListener("submit", handleSubmit);
+const addSubmitListener = () => ramenForm.addEventListener("submit", handleSubmit);
 
-const main = (form) => {
-    addSubmitListener(form);
+const main = () => {
+    addSubmitListener();
     displayRamens();
 }
 
-document.addEventListener('DOMContentLoaded', main)
-// main();
+document.addEventListener('DOMContentLoaded', main);
 
 // Export functions for testing
-module.exports = {
+export {
   displayRamens,
   displayRamen,
   addSubmitListener,

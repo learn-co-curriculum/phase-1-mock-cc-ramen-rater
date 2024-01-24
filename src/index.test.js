@@ -1,4 +1,3 @@
-import { displayRamens, handleClick, addSubmitListener, main } from './index'
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { Window } from 'happy-dom'
 import fs from 'fs'
@@ -6,6 +5,7 @@ import path from 'path'
 import { fireEvent } from '@testing-library/dom'
 
 //! Set the data
+
 const testResponseData = [
     {
         "id": 1,
@@ -52,9 +52,9 @@ const testResponseData = [
 vi.stubGlobal('testResponseData', testResponseData)
 
 //! Set the DOM
+
 const htmlDocPath = path.join(process.cwd(), 'index.html');
 const htmlDocumentContent = fs.readFileSync(htmlDocPath).toString();
-
 const window = new Window
 const document = window.document
 document.body.innerHTML = ''
@@ -76,24 +76,20 @@ const testFetch = vi.fn((url) => {
         resolve(testResponse);
     });
 });
+
 vi.stubGlobal('fetch', testFetch);
+
+import { addSubmitListener, displayRamens, handleClick, main } from './index'
 
 //! Test Suite
 
 describe('displayRamens', () => {
 
-    beforeEach(() => {
-        document.body.innerHTML = ''
-        document.write(htmlDocumentContent)
-    })
-
     it('should fetch all ramens and display them as <img> inside #ramen-menu', async () => {
-
-        const ramenMenuDiv = document.getElementById('ramen-menu');
-
-        await displayRamens();
+        displayRamens();
         await new Promise(resolve => setTimeout(resolve, 0));
 
+        const ramenMenuDiv = document.getElementById('ramen-menu');
         const ramenImages = ramenMenuDiv.querySelectorAll('img');
         const urls = Array.from(ramenImages).map((ramenImg) => ramenImg.src);
         const originalUrls = testResponseData.map((ramen) => ramen.image);
@@ -108,10 +104,9 @@ describe('handleClick', () => {
         const ramenMenuDiv = document.getElementById('ramen-menu');
         const ramenImages = ramenMenuDiv.querySelectorAll('img');
 
-        // Create a spy for handleClick
         const handleClickSpy = vi.fn(handleClick);
         vi.stubGlobal('handleClick', handleClickSpy);
-        // Attach the event listener manually with the spy
+
         ramenImages.forEach((ramenImg) => {
             const ramen = testResponseData.find((ramen) => ramen.image === ramenImg.src);
             ramenImg.addEventListener('click', (event) => {
@@ -119,11 +114,9 @@ describe('handleClick', () => {
             });
         });
 
-        // Trigger the click event on the first image
         const img = ramenImages[0];
         fireEvent.click(img);
 
-        // Check if handleClickSpy was called with the correct arguments
         expect(handleClickSpy).toHaveBeenCalled();
         expect(handleClickSpy).toHaveBeenCalledWith(testResponseData[0], expect.anything());
 
@@ -152,8 +145,54 @@ describe('handleClick', () => {
 })
 
 describe('handleSubmit', () => {
-    it('submits with button outside of form', async () => {
-        //! Arrange
+    it('should add a new slider image when the submit button is clicked', async () => {
+        const ramenForm = document.getElementById('new-ramen');
+        addSubmitListener(ramenForm)
+        const newRamen = {
+            name: 'Mat',
+            restaurant: 'Test',
+            image: './assets/ramen/nirvana.jpg',
+            rating: '4',
+            comment: 'test',
+        }
+
+        const ramenMenuDivBefore = document.querySelectorAll('#ramen-menu img');
+        const ramenFormName = document.querySelector("#new-ramen #new-name");
+        const ramenFormRestaurant = document.querySelector("#new-ramen #new-restaurant");
+        const ramenFormImage = document.querySelector("#new-ramen #new-image");
+        const ramenFormRating = document.querySelector("#new-ramen #new-rating");
+        const ramenFormComment = document.querySelector("#new-ramen #new-comment");
+        const submitButton = document.getElementById('submit-button');
+        [ramenFormName, ramenFormRestaurant, ramenFormImage, ramenFormRating, ramenFormComment].forEach((input) => console.log(input != null));
+        // main(ramenForm)
+
+        ramenFormName.value = newRamen.name;
+        ramenFormRestaurant.value = newRamen.restaurant;
+        ramenFormImage.value = newRamen.image;
+        ramenFormRating.value = newRamen.rating;
+        ramenFormComment.value = newRamen.comment;
+        console.log("🚀 ~ file: index.test.js:171 ~ ", ramenFormName.value, ramenFormRestaurant.value, ramenFormImage.value, ramenFormRating.value, ramenFormComment.value)
+
+        // fireEvent.click(submitButton);
+        fireEvent.submit(ramenForm, {
+			target: {
+				name: {value: newRamen.name},
+                restaurant: {value: newRamen.restaurant},
+                image: {value: newRamen.image},
+                rating: {value: newRamen.rating},
+                comment: {value: newRamen.comment},
+            },
+            preventDefault: vi.fn(),
+            reset: vi.fn(),
+
+        });
+
+        const ramenMenuDivAfter = document.querySelectorAll('#ramen-menu img');
+        expect(ramenMenuDivAfter.length).toBe(ramenMenuDivBefore.length + 1);
+        expect(ramenMenuDivAfter[ramenMenuDivBefore.length].src).toBe(newRamen.image);
+    });
+
+    it('should attach a click listener to the new element to display its details', () => {
         const newRamen = {
             name: 'Mat',
             restaurant: 'Test',
@@ -161,7 +200,7 @@ describe('handleSubmit', () => {
             rating: '4',
             comment: 'test',
             id: 6
-        
+
         }
         const ramenMenuDivBefore = document.querySelectorAll('#ramen-menu img');
         const ramenForm = document.getElementById('new-ramen');
@@ -172,22 +211,33 @@ describe('handleSubmit', () => {
         const ramenFormComment = document.querySelector("#new-ramen #new-comment");
         const submitButton = document.getElementById('submit-button');
 
-        //! The listener is not added unless I invoke either of these functions
-        // addSubmitListener(ramenForm)
         main(ramenForm)
-        
-        //! Act
+
         ramenFormName.value = newRamen.name;
         ramenFormRestaurant.value = newRamen.restaurant;
         ramenFormImage.value = newRamen.image;
         ramenFormRating.value = newRamen.rating;
         ramenFormComment.value = newRamen.comment;
 
-        await fireEvent.click(submitButton);
+        fireEvent.click(submitButton);
 
-        //! Assert
         const ramenMenuDivAfter = document.querySelectorAll('#ramen-menu img');
-        expect(ramenMenuDivAfter.length).toBe(ramenMenuDivBefore.length + 1);
-        expect(ramenMenuDivAfter[ramenMenuDivBefore.length].src).toBe(newRamen.image);
-    });
+        const img = ramenMenuDivAfter[ramenMenuDivBefore.length];
+        img.addEventListener('click', (event) => {
+            handleClick(newRamen, event);
+        });
+        fireEvent.click(img);
+
+        const detailImg = document.querySelector("#ramen-detail > .detail-image");
+        const detailName = document.querySelector("#ramen-detail > .name");
+        const detailRestaurant = document.querySelector("#ramen-detail > .restaurant");
+        const detailsRating = document.getElementById("rating-display");
+        const detailsComment = document.getElementById("comment-display");
+
+        expect(detailName.textContent).toBe(newRamen.name);
+        expect(detailRestaurant.textContent).toBe(newRamen.restaurant);
+        expect(detailImg.src).toBe(newRamen.image);
+        expect(detailsRating.textContent).toBe(newRamen.rating.toString());
+        expect(detailsComment.textContent).toBe(newRamen.comment);
+    })
 })
